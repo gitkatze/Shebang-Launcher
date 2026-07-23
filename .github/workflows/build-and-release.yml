@@ -42,11 +42,17 @@ jobs:
           -p:PublishSingleFile=true
           -p:EnableCompressionInSingleFile=true
 
+      - name: Create distribution archive
+        shell: pwsh
+        run: |
+          Copy-Item README.md, LICENSE ./publish
+          Compress-Archive -Path ./publish/* -DestinationPath "./SheBang-${{ github.ref_name }}-win-x64.zip"
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: SheBang-win-x64
-          path: publish/
+          path: SheBang-*.zip
           if-no-files-found: error
 
   release:
@@ -69,4 +75,4 @@ jobs:
           GH_REPO: ${{ github.repository }}
         run: >-
           gh release create "${{ github.ref_name }}"
-          ./release/Shebang.exe
+          ./release/*.zip
