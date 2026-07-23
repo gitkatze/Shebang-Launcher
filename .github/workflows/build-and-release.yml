@@ -70,5 +70,3 @@ jobs:
         run: >-
           gh release create "${{ github.ref_name }}"
           ./release/Shebang.exe
-          --title "SheBang ${{ github.ref_name }}"
-          --notes $'初回リリースです。\n\n- Windows x64 向け自己完結型 Shebang.exe\n- Shebang（#!）、/usr/bin/env、env -S に対応\n- Shebang がないファイルは設定されたエディタで起動\n- .NET 10 対応'
